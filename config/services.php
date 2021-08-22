@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'req_res_in' => [
+        'base_url' => env('REQ_RES_IN_BASE_URL', ''),
+    ],
+
 ];
