@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\User;
-use App\ReqResIn\ReqResInUser;
+use App\Contracts\RawUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,7 +22,7 @@ class UpdateOrCreateUser implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(ReqResInUser $rawUser)
+    public function __construct(RawUser $rawUser)
     {
         $this->rawUser = $rawUser;
     }

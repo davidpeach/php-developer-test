@@ -2,7 +2,9 @@
 
 namespace App\ReqResIn;
 
-class ReqResInUser
+use App\Contracts\RawUser;
+
+class ReqResInUser implements RawUser
 {
 	private $externalId;
 
