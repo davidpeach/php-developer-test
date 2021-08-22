@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
+use App\Jobs\UpdateOrCreateUser;
 use App\ReqResIn\ReqResInApi;
 use App\ReqResIn\ReqResInUser;
 use Illuminate\Console\Command;
@@ -43,14 +43,7 @@ class ImportUsersCommand extends Command
         $rawUsers = $api->getUsers();
 
         $rawUsers->each(function (ReqResInUser $rawUser) {
-            User::updateOrCreate([
-                'external_id' => $rawUser->getExternalId(),
-            ], [
-                'first_name' => $rawUser->getFirstName(),
-                'last_name' => $rawUser->getLastName(),
-                'email' => $rawUser->getEmail(),
-                'avatar' => $rawUser->getAvatar(),
-            ]);
+            UpdateOrCreateUser::dispatch($rawUser);
         });
 
         return 0;
