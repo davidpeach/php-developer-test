@@ -14,7 +14,7 @@ class ImportUsersCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'jump:users:import';
+    protected $signature = 'jump:users:import {--page=}';
 
     /**
      * The console command description.
@@ -40,7 +40,8 @@ class ImportUsersCommand extends Command
      */
     public function handle(ReqResInApi $api)
     {
-        $rawUsers = $api->getUsers();
+        $page = $this->option('page');
+        $rawUsers = $api->getUsers($page);
 
         $rawUsers->each(function (ReqResInUser $rawUser) {
             UpdateOrCreateUser::dispatch($rawUser);

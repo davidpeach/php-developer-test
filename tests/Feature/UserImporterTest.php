@@ -74,12 +74,10 @@ class UserImporterTest extends TestCase
     {
         Http::fake();
 
-        config('services.req_res_in.base_url', 'https://some-test-endpoint.test/api');
-
         $this->artisan('jump:users:import --page=2');
 
         Http::assertSent(function (Request $request) {
-            return $request->url() === 'https://some-test-endpoint.test/api?page=2';
+            return $request->url() === config('services.req_res_in.base_url') . '/users?page=2';
         });
     }
 }
