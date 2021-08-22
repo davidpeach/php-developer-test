@@ -6,6 +6,8 @@ use App\ReqResIn\ReqResInApi;
 use App\ReqResIn\ReqResInUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -65,5 +67,19 @@ class UserImporterTest extends TestCase
             'email' => 'lindsay.ferguson@reqres.in',
             'avatar' => 'https://reqres.in/img/faces/8-image.jpg',
         ]);
+    }
+
+    /** @test */
+    public function users_can_be_imported_from_a_specific_page_of_the_api()
+    {
+        Http::fake();
+
+        config('services.req_res_in.base_url', 'https://some-test-endpoint.test/api');
+
+        $this->artisan('jump:users:import --page=2');
+
+        Http::assertSent(function (Request $request) {
+            return $request->url() === 'https://some-test-endpoint.test/api?page=2';
+        });
     }
 }
