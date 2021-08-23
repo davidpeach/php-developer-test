@@ -40,7 +40,7 @@ class ImportUsersCommand extends Command
      */
     public function handle(ReqResInApi $api)
     {
-        $page = $this->option('page');
+        $page = $this->option('page') ?? config('services.req_res_in.default_api_page', 1);
         $rawUsers = $api->getUsers($page);
 
         $rawUsers->each(function (ReqResInUser $rawUser) {

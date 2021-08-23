@@ -32,6 +32,7 @@ return [
 
     'req_res_in' => [
         'base_url' => env('REQ_RES_IN_BASE_URL', ''),
+        'default_api_page' => env('REQ_RES_IN_DEFAULT_API_PAGE', 1),
     ],
 
 ];

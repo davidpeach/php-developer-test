@@ -80,4 +80,16 @@ class UserImporterTest extends TestCase
             return $request->url() === config('services.req_res_in.base_url') . '/users?page=2';
         });
     }
+
+    /** @test */
+    public function the_default_page_of_the_api_is_page_1()
+    {
+        Http::fake();
+
+        $this->artisan('jump:users:import');
+
+        Http::assertSent(function (Request $request) {
+            return $request->url() === config('services.req_res_in.base_url') . '/users?page=1';
+        });
+    }
 }
