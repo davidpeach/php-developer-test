@@ -39,11 +39,11 @@ class ReqResInApi
 
         return $data->map(function ($rawData) {
             $rawUser = new ReqResInUser;
-            $rawUser->setExternalId('7');
-            $rawUser->setEmail('michael.lawson@reqres.in');
-            $rawUser->setFirstName('Michael');
-            $rawUser->setLastName('Lawson');
-            $rawUser->setAvatar('https://reqres.in/img/faces/7-image.jpg');
+            $rawUser->setExternalId($rawData['id']);
+            $rawUser->setEmail($rawData['email']);
+            $rawUser->setFirstName($rawData['first_name']);
+            $rawUser->setLastName($rawData['last_name']);
+            $rawUser->setAvatar($rawData['avatar']);
             return $rawUser;
         });
     }
